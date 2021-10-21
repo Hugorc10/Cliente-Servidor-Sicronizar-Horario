@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/socketTCP/socketTCP.iml" filepath="$PROJECT_DIR$/socketTCP/socketTCP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/socketUDP/socketUDP.iml" filepath="$PROJECT_DIR$/socketUDP/socketUDP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/trabalhosd.iml" filepath="$PROJECT_DIR$/.idea/trabalhosd.iml" />
+    </modules>
+  </component>
+</project>
