@@ -10,12 +10,14 @@ import javafx.stage.WindowEvent;
 import java.io.IOException;
 import java.util.Objects;
 
-/* ***************************************************************
+import controller.ServerController;
+
+/**
  * Autor: Hugo Teixeira Mafra
  * Matricula: 201611540
  * Inicio: 10/09/2021
  * Funcao: Atualizar a hora de um cliente a partir do horario do servidor
- *************************************************************** */
+*/
 public class PrincipalServidor extends Application {
     public static Scene telaServer;
     
@@ -28,7 +30,7 @@ public class PrincipalServidor extends Application {
         Parent fxmlServer = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/screen/server.fxml")));
         telaServer = new Scene(fxmlServer);
         primaryStage.setScene(telaServer); // a cena eh passada para o palco
-        primaryStage.setTitle("Relogio Servidor Udp");
+        primaryStage.setTitle("Relogio Servidor UDP");
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {

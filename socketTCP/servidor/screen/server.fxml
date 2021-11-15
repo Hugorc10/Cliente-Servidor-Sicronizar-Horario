@@ -6,33 +6,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.ServerControllerTCP">
-  <ImageView fx:id="viewClock" fitHeight="250.0" fitWidth="250.0" layoutX="170" layoutY="20" pickOnBounds="true"
+<?import javafx.scene.control.Label?>
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.ServerController">
+
+  <ImageView fx:id="imgViewClock" fitHeight="250.0" fitWidth="250.0" layoutX="170" layoutY="20" pickOnBounds="true"
              preserveRatio="true" visible="false">
     <!--         <image>-->
     <!--            <Image url="@../imagens/relogio.gif" />-->
     <!--         </image>-->
   </ImageView>
-  <Button fx:id="btnLigarServidor" layoutX="215.0" layoutY="150.0" mnemonicParsing="false" onAction="#iniciarServidor"
-          text="Iniciar servidor">
+  <Button fx:id="btnLigarServidor" layoutX="230.0" layoutY="150.0" prefHeight="50" mnemonicParsing="false"
+          onAction="#iniciarServidor" text="Iniciar servidor">
     <font>
-      <Font name="System Bold Italic" size="18.0"/>
+      <Font name="Arial Bold" size="18.0"/>
     </font>
   </Button>
-  <Button fx:id="btnPararServidor" layoutX="210.0" layoutY="300.0" mnemonicParsing="false"
-          style="-fx-background-color: rgba(246,46,46,0.66)" text="Parar servidor">
+  <!--  <Button fx:id="btnPararServidor" layoutX="210.0" layoutY="300.0" mnemonicParsing="false"-->
+  <!--          style="-fx-background-color: rgba(246,46,46,0.66)" text="Parar servidor">-->
+  <!--    <font>-->
+  <!--      <Font name="System Bold Italic" size="18.0"/>-->
+  <!--    </font>-->
+  <!--  </Button>-->
+  <Label text="Horario" textAlignment="CENTER" layoutX="275.0" layoutY="350.0">
     <font>
-      <Font name="System Bold Italic" size="18.0"/>
+      <Font name="Helvetica" size="19.0"/>
     </font>
-  </Button>
+  </Label>
 
-  <TextArea fx:id="horario" editable="false" layoutX="200.0" layoutY="400.0" maxHeight="-Infinity"
-            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="54.0" prefWidth="209.0">
+  <TextArea fx:id="txtAreaHorario" editable="false" layoutX="205.0" layoutY="390.0"
+            prefHeight="54.0" prefWidth="210.0" style="-fx-border-color: black">
     <font>
-      <Font size="17.0"/>
+      <Font name="Arial Bold" size="17.0"/>
     </font>
   </TextArea>
 </AnchorPane>

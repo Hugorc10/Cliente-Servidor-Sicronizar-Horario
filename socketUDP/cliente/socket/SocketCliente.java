@@ -1,13 +1,17 @@
 package socket;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
-import controller.ClientControllerUDP;
+import controller.ClientController;
 
-import java.net.*;
-
+/**
+ * Classe: SocketCliente
+ */
 public class SocketCliente extends Thread {
-    ClientControllerUDP controllerUDP;
+    ClientController clientController;
     
     public void run() {
         try {
@@ -22,12 +26,11 @@ public class SocketCliente extends Thread {
             byte[] sendData;
             byte[] receiveData = new byte[1024];
             
-            /*System.out.println("Digite o texto a ser enviado ao servidor: ");*/
             String sentence = "Solicitar horario";
             sendData = sentence.getBytes();
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, porta);
             
-            System.out.println("Enviando pacote UDP para " + servidor + " : " + porta);
+            System.out.println("Enviando pacote UDP para " + servidor + ":" + porta);
             clientSocket.send(sendPacket);
             
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -35,19 +38,18 @@ public class SocketCliente extends Thread {
             clientSocket.receive(receivePacket);
             System.out.println("Pacote UDP recebido...");
             
-            String sentencaRecebida = new String(receivePacket.getData());
-            controllerUDP.txtAreaHorario.setText(sentencaRecebida);
+            String sentencaRecebida = new String(receivePacket.getData(), receivePacket.getOffset(), receivePacket.getLength());
+            clientController.txtAreaHorario.setText(sentencaRecebida);
             
-            System.out.println("Data recebido do servidor: " + sentencaRecebida);
+            System.out.println("Data recebida do servidor: " + sentencaRecebida);
             clientSocket.close();
-            System.out.println("Socket cliente fechado!");
+            System.out.println("Socket cliente fechado.");
         } catch (IOException e) {
             e.printStackTrace();
-        }//fim metodo catch
-    }//fim metodo criarClientSocket
+        } // fim do catch
+    } //fim do metodo run
     
-    public void setControlador(ClientControllerUDP control) {
-        this.controllerUDP = control;
-    }//fim metodo setControlador
-    
-}//fim classe Socket
+    public void setControlador(ClientController control) {
+        this.clientController = control;
+    } // fim do metodo setControlador
+} // fim da classe Socket

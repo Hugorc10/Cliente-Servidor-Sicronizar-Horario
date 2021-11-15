@@ -1,6 +1,6 @@
 package controller;
 
-import time.HorarioPC;
+import time.HorarioComputador;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,24 +14,21 @@ import socket.SocketServidor;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/*********************************************************************
- * Classe: Controlador
+/**
+ * Classe: ServerController
  * Funcao: controla todas as funcoes da tela
- ******************************************************************* */
-public class ServerControllerTCP implements Initializable {
+ */
+public class ServerController implements Initializable {
     public int porta = 5554;
+    
     @FXML
     public Button btnLigarServidor;
     @FXML
-    public Button btnPararServidor;
+    public TextArea txtAreaHorario;
     @FXML
-    public TextArea horario;
-    @FXML
-    ImageView viewClock;
-    @FXML
-    ImageView viewStoppedClock;
+    ImageView imgViewClock;
     
-    HorarioPC classeHorario = new HorarioPC();
+    HorarioComputador classeHorario = new HorarioComputador();
     
     /* ***************************************************************
      * Metodo: initialize
@@ -41,28 +38,33 @@ public class ServerControllerTCP implements Initializable {
      *************************************************************** */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Image imgClock = new Image(getClass().getResource("/img/clock_gif.gif").toExternalForm());
-        viewClock.setImage(imgClock);
+        btnLigarServidor.setDefaultButton(true);
         
-//        Image imgStoppedClock = new Image(getClass().getResource("/img/clock.png").toExternalForm());
-//        viewStoppedClock.setImage(imgStoppedClock);
+        Image imgClock = new Image(getClass().getResource("/img/clock_gif.gif").toExternalForm());
+        imgViewClock.setImage(imgClock);
         
         classeHorario.setControlador(this);
         classeHorario.start();
-    } //fim do initialize
+    } //fim do metodo initialize
     
     public void iniciarServidor(ActionEvent event) {
         porta += 1;
+        
+//        if (porta >= 5558) {
+//            porta = 5554;
+//        }
+        
         Platform.runLater(() -> {
 //            viewStoppedClock.setVisible(false);
-            viewClock.setVisible(true);
+            imgViewClock.setVisible(true);
         });
-//        btnLigarServidor.setText("Nova conexao");
+        
+        btnLigarServidor.setText("Nova conexao");
+        btnLigarServidor.setLayoutY(280);
+//        imgViewClock.setVisible(false);
         SocketServidor server = new SocketServidor();
         btnLigarServidor.setVisible(false);
         server.setControlador(this);
         server.start();
-        //System.out.println("depois de iniciar");
-    }//Fim metodo iniciaServidor
-    
+    } // fim do metodo iniciaServidor
 }//Fim classe Controlador

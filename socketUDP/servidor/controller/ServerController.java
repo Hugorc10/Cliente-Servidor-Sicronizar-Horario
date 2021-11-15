@@ -1,6 +1,6 @@
 package controller;
 
-import horas.HorarioPC;
+import time.HorarioComputador;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,21 +15,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /*********************************************************************
- * Classe: Controlador
+ * Classe: ServerController
  * Funcao: controla todas as funcoes da tela
  ******************************************************************* */
-public class ServerControllerUDP implements Initializable {
+public class ServerController implements Initializable {
     @FXML
-    public TextArea horario;
+    public TextArea txtAreaHorario;
     @FXML
     Button btnLigarServidor;
-    @FXML
-    Button btnPararServidor;
+//    @FXML
+//    Button btnPararServidor;
     @FXML
     ImageView imgViewClock;
-//    @FXML
-//    ImageView imgViewStoppedClock;
-    HorarioPC classeHorario = new HorarioPC();
+    HorarioComputador classeHorario = new HorarioComputador();
     
     /* ***************************************************************
      * Metodo: initialize
@@ -39,46 +37,23 @@ public class ServerControllerUDP implements Initializable {
      *************************************************************** */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btnPararServidor.setVisible(false);
-//    File file1 = new File("/imagens/clock.png");
-        Image imgStoppedClock = new Image(getClass().getResource("/img/clock.png").toExternalForm());
-//        imgViewStoppedClock.setImage(imgStoppedClock);
-
+        btnLigarServidor.setDefaultButton(true);
+        
 //    File file2 = new File("/imagens/clock-gif.gif");
         Image imgClock = new Image(getClass().getResource("/img/clock_gif.gif").toExternalForm());
         imgViewClock.setImage(imgClock);
         
         classeHorario.setControlador(this);
         classeHorario.start();
-    } //fim do initialize
+    } //fim do metodo initialize
     
     public void iniciarServidor(ActionEvent event) {
         Platform.runLater(() -> {
-//            imgViewStoppedClock.setVisible(false);
             imgViewClock.setVisible(true);
-            btnPararServidor.setVisible(true);
+//            btnPararServidor.setVisible(true);
             btnLigarServidor.setVisible(false);
         });
-//        SocketServidor.stop = false;
         SocketServidor server = new SocketServidor();
-//        System.out.println(SocketServidor.stop);
-        if (!SocketServidor.stop) {
-            System.out.println("Thread esta viva");
-            server.start();
-        } else {
-            System.out.println("Servidor ainda esta rodando");
-            return;
-        }
-        SocketServidor.stop = false;
-    }//Fim metodo iniciaServidor
-    
-    public void stopServer(ActionEvent event) {
-        Platform.runLater(() -> {
-            btnLigarServidor.setVisible(true);
-            btnPararServidor.setVisible(false);
-            imgViewClock.setVisible(false);
-            SocketServidor.stop = true;
-        });
-    }
-    
-}//Fim classe Controlador
+        server.start();
+    } // fim metodo iniciaServidor
+} // fim classe ServerController

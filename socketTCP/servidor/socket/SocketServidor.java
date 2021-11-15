@@ -1,6 +1,6 @@
 package socket;
 
-import controller.ServerControllerTCP;
+import controller.ServerController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,26 +12,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ *
+ */
 public class SocketServidor extends Thread {
-    ServerControllerTCP c;
+    ServerController serverController;
     ServerSocket serverSocket;
     
     public void run() {
-        /*while(true){*/
-        //int novaP = 0;
         try {
-            criarServerSocket(c.porta);
+            criarServerSocket(serverController.porta);
             System.out.println("Esperando conexao...");
             Socket socket = esperaConexao();
             trataConexao(socket);
         } catch (IOException e) {
             e.printStackTrace();
-        /*novaP += porta + 1;
-	      iniciarServer(novaP);
-        System.out.println("nova porta: " + novaP);*/
         }//fim metodo catch
-        /*}//fim while*/
-    }//fim metodo iniciarServer
+    } // fim do metodo run
     
     public void criarServerSocket(int porta) throws IOException {
         serverSocket = new ServerSocket(porta);
@@ -40,23 +37,20 @@ public class SocketServidor extends Thread {
     public Socket esperaConexao() throws IOException {
         System.out.println("servidor iniciado!");
         return serverSocket.accept();
-    }//fim metodo esperaConexao
+    } //fim do metodo esperaConexao
     
     public void trataConexao(Socket socket) {
         try {
-            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());//stream de saida de dados em bytes sendo convertida para dados convencionais
-            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());//stream de entrada de dados em bytes sendo convertida para dados convencionais
-            
-            /* Protocolo hdsp */
-            String msg = input.readUTF();
+            // stream de saida de dados em bytes sendo convertida para dados convencionais
+            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+            // stream de entrada de dados em bytes sendo convertida para dados convencionais
+            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+
+//            String msg = input.readUTF();
             System.out.println("Mensagem recebida...");
             Calendar calendar = new GregorianCalendar();
             Date trialTime = new Date();
             calendar.setTime(trialTime);
-      /*String hora = (calendar.get(Calendar.HOUR_OF_DAY) + "");
-      String minuto = (calendar.get(Calendar.MINUTE) + "");
-      String segundo = (calendar.get(Calendar.SECOND) + "");
-      String horas = hora + ":" + minuto + ":" + segundo;*/
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
             
             String horas = sdf.format(new Date());
@@ -66,9 +60,11 @@ public class SocketServidor extends Thread {
             //fecha streams de entrada e saida
             input.close();
             output.close();
-            c.btnLigarServidor.setVisible(true);
+            serverController.btnLigarServidor.setVisible(true);
         } catch (IOException e) {
-            //trata excecao
+//            String erro = e.getMessage();
+            System.out.println("Erro encontrado: " + e.getMessage());
+            // trata excecao
         }//fim metodo catch
         finally {
             //final do tratamento do protocolo
@@ -81,12 +77,13 @@ public class SocketServidor extends Thread {
         }//fim metodo finally
     }//fim metodo trataConexao
     
-    public void setControlador(ServerControllerTCP control) {
-        c = control;
-    }//fim metodo setControlador
+    public void setControlador(ServerController control) {
+        serverController = control;
+    } //fim metodo setControlador
     
     public void fechaSocket(Socket s) throws IOException {
-        s.close();//fecha o socket de comunicacao entre cliente-servidor
+        //fecha o socket de comunicacao entre cliente-servidor
+        s.close();
     }// fim metodo fechaSocket
     
 }//fim classe Socket

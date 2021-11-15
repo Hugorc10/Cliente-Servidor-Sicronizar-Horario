@@ -10,10 +10,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /*********************************************************************
- * Classe: Controlador
+ * Classe: ClientController
  * Funcao: controla todas as funcoes da tela
- ******************************************************************* */
-public class ClientControllerUDP implements Initializable {
+ ********************************************************************/
+public class ClientController implements Initializable {
     @FXML
     public TextArea txtAreaHorario;
     @FXML
@@ -21,10 +21,10 @@ public class ClientControllerUDP implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    
+        btnMandaMsg.setDefaultButton(true);
     }
     
-    public void mandarMensagem() {
+    public void atualizarHorario() {
         SocketCliente socketCliente = new SocketCliente();
         socketCliente.setControlador(this);
         socketCliente.start();
