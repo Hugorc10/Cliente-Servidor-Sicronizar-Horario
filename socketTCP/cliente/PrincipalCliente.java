@@ -1,33 +1,47 @@
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.Objects;
 
-/* ***************************************************************
-* Autor: Hugo Teixeira Mafra
-* Matricula: 20161150
-* Inicio: 08/02/2020
-* Funcao: Atualizar a hora de um cliente a partir do horario do servidor
-*************************************************************** */
-public class PrincipalCliente extends Application{
-	
-  public static Scene telaCliente;
+import controller.ClientController;
 
-  @Override
-  public void start(Stage primaryStage)throws IOException {
-    Parent fxmlCliente = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/screen/ClienteScreen.fxml")));
-    telaCliente = new Scene(fxmlCliente);
-    primaryStage.setScene(telaCliente); // a cena eh passada para o palco
-    primaryStage.setTitle("Relogio Cliente TCP");
-    primaryStage.show(); // faco o palco ser exibido
-  }//Fim start
-  
-  public static void main(String[] args){
-    launch(args);
-	}//Fim main
-
-}//Fim classe
+/**
+ * Autor: Hugo Teixeira Mafra
+ * Matricula: 201611540
+ * Inicio: 10/09/2021
+ * Funcao: Atualizar a hora de um cliente a partir do horario do servidor
+ */
+public class PrincipalCliente extends Application {
+    
+    public static Scene telaCliente;
+    
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Parent fxmlCliente = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/screen/client.fxml")));
+        telaCliente = new Scene(fxmlCliente);
+        // a cena eh passada para o palco
+        primaryStage.setScene(telaCliente);
+        // interrompe programa ao clicar no botao fechar
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+        primaryStage.setTitle("Relogio Cliente TCP");
+        primaryStage.show(); // faco o palco ser exibido
+    } // fim do metodo start
+    
+    public static void main(String[] args) {
+        launch(args);
+    } // fim do metodo main
+    
+} //Fim da classe Principal

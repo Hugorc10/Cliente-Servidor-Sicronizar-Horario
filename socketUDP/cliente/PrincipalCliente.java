@@ -10,11 +10,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-/* ***************************************************************
+import controller.ClientController;
+
+/**
  * Autor: Hugo Teixeira Mafra
  * Matricula: 201611540
+ * Inicio: 10/09/2021
  * Funcao: Atualizar a hora de um cliente a partir do horario do servidor
- *************************************************************** */
+ */
 public class PrincipalCliente extends Application {
     
     public static Scene telaCliente;
@@ -37,6 +40,6 @@ public class PrincipalCliente extends Application {
             }
         });
         primaryStage.show(); // o palco eh exibido
-    }//Fim start
+    } // fim metodo start
     
-}//Fim classe
+} // fim classe Principal
