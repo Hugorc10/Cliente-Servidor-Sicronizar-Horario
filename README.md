@@ -1,1 +1,1 @@
-# sd_trabalho01_201611540
+Sicronização de horário entre cliente e servidor utilizando Sockets em Java.
